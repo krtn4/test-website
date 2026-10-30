@@ -1,0 +1,287 @@
+{
+  "arrival.jpg": {
+    "width": 1544,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQBACdASoQABUAPu1iqU2ppaQiMAgBMB2JZACdMoACXvnenJoCptPVAADNtThMpf+LxXXiATG/Y40HDoZS4OUqInLvqplm1yeKeFKMnQM1AtRtw/KJmzlEDAAAAA==",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/arrival-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/arrival-960.webp"
+      },
+      {
+        "width": 1544,
+        "file": "optimized/arrival-1544.webp"
+      }
+    ]
+  },
+  "blessing.jpg": {
+    "width": 1544,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAwBACdASoQABUAPu1iqU2ppaOiMAgBMB2JZACdMoMYACd7nOuYIiAU7bAA/K8jUVSeJvKRorXVJhYuLgIX2Gll7LlWb+emsAaYPy3LV8svO3eJ07rWRmlEa1WHCJJMAAA=",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/blessing-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/blessing-960.webp"
+      },
+      {
+        "width": 1544,
+        "file": "optimized/blessing-1544.webp"
+      }
+    ]
+  },
+  "bride-walk.jpg": {
+    "width": 1599,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAwCdASoQABQAPu1kqk4ppaQiMAgBMB2JZgCdMoABU430iPMDDRQAAP52/71XLa8XPHMkaTMSoaBnaDNX6lim2SClgHyK1kBRsBWzhlUldJMYAAA=",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/bride-walk-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/bride-walk-960.webp"
+      },
+      {
+        "width": 1599,
+        "file": "optimized/bride-walk-1599.webp"
+      }
+    ]
+  },
+  "bride.jpg": {
+    "width": 1544,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAACQAwCdASoQABUAPu1iqU2ppaQiMAgBMB2JZACxGwAAK4zzi65gAP5Yh0oYqza85P219q8gOqqEdBkNMaIq4aCTOGGm1UcqaUvL8hhBk5vR1XiERW/20CpEAAA=",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/bride-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/bride-960.webp"
+      },
+      {
+        "width": 1544,
+        "file": "optimized/bride-1544.webp"
+      }
+    ]
+  },
+  "celebration.jpg": {
+    "width": 1599,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACQAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JYgCw7CHFrUYhAAGAAP120jh0TZDBSRH8+TXKN1+ux63EKkvlyJvr4ZM5iXZQ0UQCrdNXajs8AAAA",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/celebration-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/celebration-960.webp"
+      },
+      {
+        "width": 1599,
+        "file": "optimized/celebration-1599.webp"
+      }
+    ]
+  },
+  "ceremony.jpg": {
+    "width": 1599,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JbACdMoR3AA1rmdvuPGAAAPeBHzYugTbTLhXnbyQJhoz+rGKZgFA79gMibseprhLd7u+uO1Myy8SX1bcts4GVfjYxYMRpgnwPz2klLoAAAA==",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/ceremony-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/ceremony-960.webp"
+      },
+      {
+        "width": 1599,
+        "file": "optimized/ceremony-1599.webp"
+      }
+    ]
+  },
+  "embrace.jpg": {
+    "width": 1440,
+    "height": 1800,
+    "placeholder": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAABQBACdASoQABQAPu1iqU2ppaQiMAgBMB2JZgCdMoACbivzzzt6CjnvNOaAAP63gTHVZwhdaeB0EPJ2/T3HYoRlTOnQdtFjBKXiU/0dnsePZgko9TJVONxV0lAAAA==",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/embrace-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/embrace-960.webp"
+      },
+      {
+        "width": 1440,
+        "file": "optimized/embrace-1440.webp"
+      }
+    ]
+  },
+  "exit.jpg": {
+    "width": 1599,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQBACdASoQABQAPu1iqU2ppaQiMAgBMB2JYgCdMoACjdbJ6yEWKMgZOADhtCBhbF8nhNiRKqpxGe0Ibu+16FfZRXzpzertBuJkadYcAAA=",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/exit-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/exit-960.webp"
+      },
+      {
+        "width": 1599,
+        "file": "optimized/exit-1599.webp"
+      }
+    ]
+  },
+  "forever.jpg": {
+    "width": 1544,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwBACdASoQABUAPu1iqk2ppaQiMAgBMB2JagCdMoRwABcBF7CdFYhVdgAA/l9c7a5sk/KclsrZK6B16v1UcB5ENdHH124BYs8FR1Vf2zzO8W6QEE/HY8q/BYAgp7g9hIAAAA==",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/forever-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/forever-960.webp"
+      },
+      {
+        "width": 1544,
+        "file": "optimized/forever-1544.webp"
+      }
+    ]
+  },
+  "intimate.jpg": {
+    "width": 1544,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQBACdASoQABUAPu1kqU2ppaQiMAgBMB2JaQAAYcz2wnnwkfnNRWtx7AD+yWCzSFB6Jb2gET6J4YWUrNCxnz6FegzZM29yTt5D7OaRpOz7GgAA",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/intimate-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/intimate-960.webp"
+      },
+      {
+        "width": 1544,
+        "file": "optimized/intimate-1544.webp"
+      }
+    ]
+  },
+  "joy.jpg": {
+    "width": 1544,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAABwBACdASoQABUAPu1iqk2ppaQiMAgBMB2JagCdMoRwACIEthRsAx2uxgk0AAD+mODCe27/OBmQTnFxwruZ4O2aVeWceJvxddeoTg+KXUcOBinWvfScc9DgEBtjHVhwAAA=",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/joy-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/joy-960.webp"
+      },
+      {
+        "width": 1544,
+        "file": "optimized/joy-1544.webp"
+      }
+    ]
+  },
+  "mantra.jpg": {
+    "width": 1333,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAACwBACdASoQABgAPu1kqU2ppaQiMAgBMB2JbACdMoRwACmbJVlJJgDg88354efAAPhR2hbdEthztrHLfORgaI0h2oLH7QJVknowsQ4E2FzLvVTwKE9jL0ZR/1tnkn+NU2a1pSwcXojfkRQAAAA=",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/mantra-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/mantra-960.webp"
+      },
+      {
+        "width": 1333,
+        "file": "optimized/mantra-1333.webp"
+      }
+    ]
+  },
+  "petals.jpg": {
+    "width": 1599,
+    "height": 2000,
+    "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACwAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JZACdMoRwAAPvMERKoAD8S1H/m/E9mzAHO9eQ8fcus8OGbKkKGGBbWLdF1lsRG4wsZFsW++Ksy5QA",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/petals-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/petals-960.webp"
+      },
+      {
+        "width": 1599,
+        "file": "optimized/petals-1599.webp"
+      }
+    ]
+  },
+  "ritual.jpg": {
+    "width": 1236,
+    "height": 1600,
+    "placeholder": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwBACdASoQABUAPu1iqU2ppaQiMAgBMB2JZgCdMoR3ACEVyltrA5I8QcAA/eHjnGytdVw2hTqIy7BIHpjv+W1Kp6KWrP8E96s46guwCoTqBaNEInBIJ4Tx0/QK/NpvJYAAAA==",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/ritual-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/ritual-960.webp"
+      },
+      {
+        "width": 1236,
+        "file": "optimized/ritual-1236.webp"
+      }
+    ]
+  },
+  "touch.jpg": {
+    "width": 1236,
+    "height": 1600,
+    "placeholder": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwBACdASoQABUAPu1iqU2ppaQiMAgBMB2JagCdMoR3ACG4RqrhqjGxJQAA/P2CJpmH08HpYf7/f/tfP3R1CdZWZDIxYEv2ICe/wD1aiGhK9nQ6T0eHobyf3qPo6S/HcslupiwCAAA=",
+    "variants": [
+      {
+        "width": 480,
+        "file": "optimized/touch-480.webp"
+      },
+      {
+        "width": 960,
+        "file": "optimized/touch-960.webp"
+      },
+      {
+        "width": 1236,
+        "file": "optimized/touch-1236.webp"
+      }
+    ]
+  }
+}

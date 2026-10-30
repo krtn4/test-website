@@ -1,0 +1,458 @@
+/* ═══════════════════════════════════════════════════════════
+   Hero — layered depth scene
+   --px / --py : smoothed pointer position (-1 → 1), set by JS
+   --s         : 0 at the top, → 1 as the hero scrolls away
+   Each layer multiplies these by its own depth.
+   ═══════════════════════════════════════════════════════════ */
+.hero {
+  --px: 0;
+  --py: 0;
+  --s: max(0, calc((var(--progress, 0.5) - 0.5) * 2));
+  position: relative;
+  display: grid;
+  height: 100vh;
+  height: 100svh;
+  min-height: 600px;
+  max-height: 1300px;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+  background: var(--ink);
+}
+
+.hero-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Photo: deepest layer, moves opposite to the pointer, pushes in on scroll. */
+.hero-photo {
+  inset: -5%;
+  transform: translate3d(calc(var(--px) * -16px), calc(var(--py) * -10px + var(--s) * 90px), 0)
+    scale(calc(1 + var(--s) * 0.08));
+  will-change: transform;
+}
+
+.hero-drift {
+  width: 100%;
+  height: 100%;
+  animation: hero-drift 28s ease-in-out infinite alternate;
+}
+
+.hero-drift img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.46) saturate(0.82) contrast(1.06);
+  scale: 1.22;
+  opacity: 0;
+}
+
+.hero.is-live .hero-drift img {
+  animation: hero-push 3.2s var(--ease) both;
+}
+
+.hero-shade {
+  z-index: 1;
+  background: radial-gradient(ellipse 70% 60% at 50% 48%, rgba(14, 10, 8, 0.15), rgba(14, 10, 8, 0.6) 100%),
+    linear-gradient(
+      180deg,
+      rgba(14, 10, 8, 0.65) 0%,
+      rgba(14, 10, 8, 0.05) 32%,
+      rgba(14, 10, 8, 0.25) 70%,
+      var(--ink) 100%
+    );
+}
+
+/* Light rays: blurred gradient shafts drifting slowly, screen-blended. */
+.hero-rays {
+  z-index: 2;
+  overflow: hidden;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: translate3d(calc(var(--px) * 24px), 0, 0);
+}
+
+.hero.is-live .hero-rays {
+  animation: fade-in 3s 1.2s both;
+}
+
+.hero-rays i {
+  position: absolute;
+  top: -30%;
+  width: 16vw;
+  min-width: 120px;
+  height: 150%;
+  background: linear-gradient(180deg, rgba(255, 214, 150, 0.26), rgba(255, 214, 150, 0.04) 60%, transparent 80%);
+  filter: blur(22px);
+  transform: rotate(22deg);
+  transform-origin: top center;
+  animation: ray-sway 14s ease-in-out infinite alternate;
+}
+
+.hero-rays i:nth-child(1) {
+  left: 18%;
+}
+
+.hero-rays i:nth-child(2) {
+  left: 42%;
+  width: 9vw;
+  opacity: 0.7;
+  animation-duration: 11s;
+  animation-delay: -4s;
+}
+
+.hero-rays i:nth-child(3) {
+  left: 64%;
+  width: 12vw;
+  opacity: 0.55;
+  animation-duration: 17s;
+  animation-delay: -8s;
+}
+
+.hero .petal-canvas {
+  z-index: 3;
+}
+
+.petal-canvas {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Temple arch: mid layer, drifts slightly with the pointer. */
+.hero-arch {
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  transform: translate3d(calc(var(--px) * 10px), calc(var(--py) * 8px - var(--s) * 40px), 0);
+}
+
+.hero-arch svg {
+  width: min(80vw, 600px);
+  height: min(80svh, 820px);
+  margin-top: 4vh;
+  stroke-width: 1.2;
+  opacity: 0.55;
+}
+
+.hero-arch path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.hero.is-live .hero-arch path {
+  animation: draw 3.4s var(--ease-cinematic) 0.6s forwards;
+}
+
+.hero-arch .fill {
+  opacity: 0;
+}
+
+.hero.is-live .hero-arch .fill {
+  animation: fade-in 1s 2.8s both;
+}
+
+/* Title: nearest layer, follows the pointer and lifts away on scroll. */
+.hero-copy {
+  position: relative;
+  z-index: 4;
+  margin-top: calc(var(--header-h) * 0.6);
+  padding: 0 var(--gutter);
+  opacity: calc(1 - var(--s) * 1.4);
+  transform: translate3d(calc(var(--px) * 8px), calc(var(--py) * 5px - var(--s) * 120px), 0);
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.hero-eyebrow i {
+  width: 34px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  margin: clamp(22px, 3vw, 38px) 0 clamp(20px, 2.6vw, 34px);
+  font-family: var(--serif);
+  font-size: clamp(68px, 12.5vw, 184px);
+  font-weight: 300;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  color: var(--ivory);
+  text-shadow: 0 10px 50px rgba(0, 0, 0, 0.45);
+  perspective: 600px;
+}
+
+.hero-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 0.45em, 0) rotateX(-75deg);
+  transform-origin: 50% 100%;
+  filter: blur(10px);
+}
+
+.hero.is-live .letter {
+  animation: letter-in 1.4s var(--ease) both;
+  animation-delay: calc(0.55s + var(--i) * 75ms);
+}
+
+.hero-amp {
+  display: inline-block;
+  margin-left: 0.12em;
+  font-size: 0.82em;
+  opacity: 0;
+}
+
+.hero.is-live .hero-amp {
+  animation: rise-in 1.6s var(--ease) 1.1s both;
+}
+
+.hero-eyebrow,
+.hero-sub,
+.hero-desc,
+.discover {
+  opacity: 0;
+}
+
+.hero.is-live .hero-eyebrow {
+  animation: rise-in 1.2s var(--ease) 0.3s both;
+}
+
+.hero.is-live .hero-sub {
+  animation: rise-in 1.2s var(--ease) 1.7s both;
+}
+
+.hero.is-live .hero-desc {
+  animation: rise-in 1.2s var(--ease) 1.9s both;
+}
+
+.hero.is-live .discover {
+  animation: rise-in 1.2s var(--ease) 2.2s both;
+}
+
+.hero-sub {
+  margin-bottom: 10px;
+  font-family: var(--serif);
+  font-size: clamp(21px, 2vw, 28px);
+  font-style: italic;
+  letter-spacing: 0.03em;
+  color: var(--champagne);
+}
+
+.hero-desc {
+  max-width: 34ch;
+  margin: 0 auto;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #d8cbb6;
+}
+
+.discover {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 18px;
+  margin-top: clamp(28px, 4vw, 48px);
+  border-bottom: 1px solid rgba(201, 164, 99, 0.7);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  transition:
+    color 0.3s,
+    gap 0.4s var(--ease);
+}
+
+.discover:hover {
+  gap: 24px;
+  color: var(--gold-bright);
+}
+
+.discover span {
+  font-size: 17px;
+  color: var(--gold);
+}
+
+.hero-index {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 34px;
+  z-index: 4;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--gold);
+}
+
+.hero-index span {
+  margin: 0 8px;
+  color: var(--muted-2);
+}
+
+.vertical-note {
+  position: absolute;
+  left: max(20px, calc(var(--gutter) / 2));
+  bottom: 48px;
+  z-index: 4;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #bcae96;
+  writing-mode: vertical-rl;
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  width: 1px;
+  height: 56px;
+  overflow: hidden;
+  background: rgba(201, 164, 99, 0.25);
+}
+
+.scroll-cue i {
+  position: absolute;
+  left: 0;
+  top: -40%;
+  width: 1px;
+  height: 40%;
+  background: var(--gold-bright);
+  animation: scroll-cue 2.4s var(--ease-cinematic) infinite;
+}
+
+@keyframes hero-push {
+  from {
+    opacity: 0;
+    scale: 1.22;
+    filter: brightness(0.2) saturate(0.6) blur(6px);
+  }
+  to {
+    opacity: 1;
+    scale: 1.04;
+    filter: brightness(0.46) saturate(0.82) contrast(1.06) blur(0);
+  }
+}
+
+@keyframes hero-drift {
+  from {
+    transform: translate3d(-1.2%, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(1.2%, -1%, 0) scale(1.05);
+  }
+}
+
+@keyframes ray-sway {
+  from {
+    transform: rotate(18deg) translateX(-4vw);
+    opacity: 0.5;
+  }
+  to {
+    transform: rotate(26deg) translateX(4vw);
+    opacity: 1;
+  }
+}
+
+@keyframes letter-in {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes scroll-cue {
+  to {
+    top: 110%;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 560px;
+  }
+
+  .hero-arch svg {
+    width: 88vw;
+    height: 74svh;
+    margin-top: 8vh;
+  }
+
+  .hero-rays i {
+    filter: blur(14px);
+  }
+
+  .hero-desc {
+    font-size: 14.5px;
+  }
+
+  .vertical-note {
+    display: none;
+  }
+
+  .hero-index {
+    bottom: 22px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 60px;
+  }
+}
+
+/* No pointer parallax on touch: a gentle CSS drift keeps the scene alive. */
+@media (hover: none) {
+  .hero-arch {
+    animation: arch-float 9s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes arch-float {
+  to {
+    translate: 0 -10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift img,
+  .letter,
+  .hero-amp,
+  .hero-eyebrow,
+  .hero-sub,
+  .hero-desc,
+  .discover,
+  .hero-rays,
+  .hero-arch .fill {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .hero-drift img {
+    scale: 1.04;
+    filter: brightness(0.46) saturate(0.82) contrast(1.06);
+  }
+
+  .hero-arch path {
+    stroke-dashoffset: 0;
+  }
+
+  .scroll-cue {
+    display: none;
+  }
+}

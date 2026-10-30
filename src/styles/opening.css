@@ -1,0 +1,694 @@
+/* ═══════════════════════════════════════════════════════════
+   Opening envelope
+   Idle: velvet backdrop, floating ivory envelope with a glowing wax seal.
+   .is-opening runs the timeline (times are from the click; keep in sync
+   with REVEAL_AT / DONE_AT in OpeningGate.jsx):
+     0.00s  text fades · seal glows, breaks, gold burst
+     0.55s  flap swings open
+     1.10s  card slides up out of the envelope
+     2.00s  envelope drops away · card settles centre
+     2.70s  card zooms toward the viewer · flash · backdrop dissolves
+     3.60s  done
+   ═══════════════════════════════════════════════════════════ */
+.og {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--text);
+}
+
+.og.is-opening {
+  pointer-events: none;
+}
+
+/* ── Backdrop ───────────────────────────────────────────── */
+.og-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 52%, rgba(201, 164, 99, 0.12), transparent 70%),
+    radial-gradient(circle, rgba(201, 164, 99, 0.1) 1.3px, transparent 1.7px) 0 0 / 24px 24px,
+    radial-gradient(ellipse 120% 90% at 50% 45%, #5d1724 0%, #340b13 55%, #14040a 100%);
+}
+
+.og-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(8, 2, 4, 0.7) 100%);
+}
+
+.og-backdrop .petal-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.og.is-opening .og-backdrop {
+  animation: og-fade-out 0.9s var(--ease) 2.75s forwards;
+}
+
+/* Soft warm flash as the card passes the "camera". */
+.og-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 240, 210, 0.9),
+    rgba(232, 203, 138, 0.35) 45%,
+    transparent 75%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.og.is-opening .og-flash {
+  animation: og-flash 1s ease-out 2.7s forwards;
+}
+
+/* ── Layout ─────────────────────────────────────────────── */
+.og-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  max-height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
+  text-align: center;
+}
+
+.og-hashtag {
+  font-family: var(--display);
+  font-size: 13px;
+  letter-spacing: 0.42em;
+  color: var(--gold);
+  animation: rise-in 1.2s var(--ease) 0.2s both;
+}
+
+.og-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0 0.28em;
+  margin: 10px 0 8px;
+  font-family: var(--serif);
+  font-size: clamp(40px, 6.4vw, 78px);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+}
+
+.og-title span,
+.og-title em {
+  animation: rise-in 1.4s var(--ease) both;
+}
+
+.og-title span:first-child {
+  animation-delay: 0.4s;
+}
+
+.og-title em {
+  font-size: 0.6em;
+  font-style: italic;
+  color: var(--gold);
+  animation-delay: 0.6s;
+}
+
+.og-title span:last-child {
+  animation-delay: 0.75s;
+}
+
+.og-sub {
+  font-size: 12.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  animation: rise-in 1.2s var(--ease) 0.95s both;
+}
+
+.og-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  animation: rise-in 1.2s var(--ease) 1.5s both;
+}
+
+.og-note {
+  margin-top: 22px;
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  animation: fade-in 1.2s 2s both;
+}
+
+.og.is-opening .og-head,
+.og.is-opening .og-actions,
+.og.is-opening .og-note {
+  animation: og-ui-out 0.6s var(--ease) forwards;
+}
+
+/* ── Envelope stage ─────────────────────────────────────── */
+.og-float {
+  position: relative;
+  width: min(500px, 84vw, calc(40svh * 1.5));
+  margin: clamp(26px, 5svh, 54px) 0 clamp(28px, 5svh, 52px);
+  animation: og-bob 6s ease-in-out 2s infinite alternate;
+}
+
+.og.is-opening .og-float {
+  animation-play-state: paused;
+}
+
+/* Golden halo behind the envelope. */
+.og-glow {
+  position: absolute;
+  inset: -30% -20%;
+  background: radial-gradient(ellipse at center, rgba(232, 203, 138, 0.28), transparent 62%);
+  filter: blur(10px);
+  animation: og-glow 4s ease-in-out infinite alternate;
+}
+
+.og.is-opening .og-glow {
+  animation: og-fade-out 1s var(--ease) 1.8s forwards;
+}
+
+.og-tilt {
+  perspective: 1200px;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.7s var(--ease);
+}
+
+.og-tilt.is-tilting {
+  transition: transform 0.15s linear;
+}
+
+.og.is-opening .og-tilt {
+  transform: none;
+  transition: transform 0.6s var(--ease);
+}
+
+.og-stage {
+  position: relative;
+  aspect-ratio: 1.5;
+  container-type: inline-size;
+  animation: og-envelope-in 1.6s var(--ease) 0.9s both;
+}
+
+/* Envelope pieces: ivory paper with a gold edge. `translate` (not transform)
+   is used for the final drop so it never fights the flap's rotation. */
+.og-back,
+.og-pocket,
+.og-flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 4px;
+}
+
+.og-back {
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle, rgba(143, 107, 53, 0.18) 1px, transparent 1.4px) 0 0 / 14px 14px,
+    linear-gradient(180deg, #7a2232, #4a1019);
+  box-shadow:
+    0 50px 90px -30px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(201, 164, 99, 0.35);
+}
+
+/* Front pocket: side and bottom panels in one piece, opening in a V that
+   meets just under the flap's tip, so a closed envelope hides the card. */
+.og-pocket {
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  background: linear-gradient(170deg, #f7efe0 0%, #eadcc1 60%, #dccaa6 100%);
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+  box-shadow: inset 0 -1px 0 rgba(143, 107, 53, 0.4);
+}
+
+/* Fine gold rule along the pocket's V edges. */
+.og-pocket::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(170deg, rgba(201, 164, 99, 0.6), rgba(143, 107, 53, 0.25));
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 1.2%, 50% 57.4%, 0 1.2%);
+}
+
+.og-flap {
+  top: 0;
+  height: 60%;
+  z-index: 4;
+  background: linear-gradient(180deg, #fbf5ea 0%, #ece0c8 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.25));
+}
+
+/* ── Wax seal ───────────────────────────────────────────── */
+.og-seal {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  z-index: 5;
+  display: grid;
+  width: 17cqi;
+  aspect-ratio: 1;
+  place-items: center;
+  translate: -50% -50%;
+  border-radius: 46% 54% 50% 50% / 52% 48% 52% 48%;
+  background: radial-gradient(circle at 35% 30%, #b8404b, #7d1824 55%, #500c15);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 0.9cqi rgba(80, 10, 20, 0.45),
+    inset 0 2px 3px rgba(255, 210, 210, 0.3);
+  animation: og-seal-glow 2.8s ease-in-out infinite;
+}
+
+.og-seal span {
+  display: grid;
+  width: 72%;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(232, 203, 138, 0.55);
+  border-radius: 50%;
+  font-family: var(--display);
+  font-size: max(13px, 4.6cqi);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gold-bright);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.og-burst {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  z-index: 6;
+  width: 40cqi;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 238, 200, 0.95), rgba(232, 203, 138, 0.45) 35%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Invitation card (burgundy velvet, gold foil) ───────── */
+.og-card {
+  position: absolute;
+  inset: 4% 5%;
+  z-index: 2;
+  display: block;
+  container-type: inline-size;
+  transform: translate3d(0, 4%, 0) scale(0.94);
+}
+
+.og-card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.8cqi;
+  overflow: hidden;
+  padding: 7cqi;
+  border-radius: 5px;
+  background: radial-gradient(ellipse 80% 70% at 30% 20%, #7a2333 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 90%, #3a0a13, transparent 60%), #4a0f1a;
+  color: var(--champagne);
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.og-card-border {
+  position: absolute;
+  inset: 3.4cqi;
+  border: 1px solid rgba(214, 178, 110, 0.65);
+}
+
+.og-card-border::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(214, 178, 110, 0.3);
+}
+
+.og-corner {
+  position: absolute;
+  width: 8cqi;
+  height: auto;
+  stroke: #d6b26e;
+}
+
+.og-corner.tl {
+  top: 5cqi;
+  left: 5cqi;
+}
+
+.og-corner.tr {
+  top: 5cqi;
+  right: 5cqi;
+  scale: -1 1;
+}
+
+.og-corner.bl {
+  bottom: 5cqi;
+  left: 5cqi;
+  scale: 1 -1;
+}
+
+.og-corner.br {
+  right: 5cqi;
+  bottom: 5cqi;
+  scale: -1 -1;
+}
+
+.og-crest {
+  display: flex;
+  width: 14cqi;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6cqi;
+  border: 1px solid rgba(214, 178, 110, 0.7);
+  border-radius: 50%;
+  font-family: var(--display);
+  font-size: max(12px, 4.6cqi);
+  font-weight: 600;
+}
+
+.og-crest i {
+  font-size: 0.45em;
+  font-style: normal;
+}
+
+.og-card-tag {
+  font-family: var(--display);
+  font-size: max(9px, 2.4cqi);
+  letter-spacing: 0.32em;
+}
+
+.og-card-heading {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--serif);
+  font-size: max(18px, 7.6cqi);
+  font-weight: 400;
+  line-height: 0.98;
+}
+
+.og-card-divider {
+  width: 46%;
+  color: #d6b26e;
+}
+
+.og-card-names {
+  font-family: var(--display);
+  font-size: max(9px, 2.5cqi);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.og-card-names i {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.og-card-date {
+  font-family: var(--display);
+  font-size: max(9px, 2.2cqi);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* A light sweep crosses the card as it emerges. */
+.og-card-sheen {
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 240, 210, 0.28) 50%, transparent 65%);
+  translate: -100% 0;
+  pointer-events: none;
+}
+
+/* ── Opening timeline ───────────────────────────────────── */
+.og.is-opening .og-seal {
+  animation: og-seal-break 0.75s var(--ease) 0.05s forwards;
+}
+
+.og.is-opening .og-burst {
+  animation: og-burst 1s ease-out 0.3s forwards;
+}
+
+.og.is-opening .og-flap {
+  animation:
+    og-flap-open 0.85s var(--ease-cinematic) 0.55s forwards,
+    og-drop 0.75s var(--ease-cinematic) 2s forwards;
+}
+
+.og.is-opening .og-back,
+.og.is-opening .og-pocket {
+  animation: og-drop 0.75s var(--ease-cinematic) 2s forwards;
+}
+
+.og.is-opening .og-card {
+  animation: og-card-journey 3.6s linear forwards;
+}
+
+.og.is-opening .og-card-sheen {
+  animation: og-sheen 1.2s var(--ease) 1.5s forwards;
+}
+
+/* ── Keyframes ──────────────────────────────────────────── */
+@keyframes og-envelope-in {
+  from {
+    opacity: 0;
+    translate: 0 50px;
+    scale: 0.9;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes og-bob {
+  from {
+    transform: translate3d(0, -6px, 0) rotate(-0.6deg);
+  }
+  to {
+    transform: translate3d(0, 6px, 0) rotate(0.6deg);
+  }
+}
+
+@keyframes og-glow {
+  from {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes og-seal-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 18px rgba(0, 0, 0, 0.45),
+      0 0 0 0 rgba(232, 203, 138, 0),
+      inset 0 0 0 0.9cqi rgba(80, 10, 20, 0.45),
+      inset 0 2px 3px rgba(255, 210, 210, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 8px 18px rgba(0, 0, 0, 0.45),
+      0 0 22px 4px rgba(232, 203, 138, 0.35),
+      inset 0 0 0 0.9cqi rgba(80, 10, 20, 0.45),
+      inset 0 2px 3px rgba(255, 210, 210, 0.3);
+  }
+}
+
+@keyframes og-ui-out {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0);
+    filter: blur(4px);
+  }
+}
+
+@keyframes og-seal-break {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  35% {
+    transform: scale(1.16);
+    opacity: 1;
+    filter: brightness(1.4);
+  }
+  100% {
+    transform: scale(0.5) rotate(28deg) translateY(30%);
+    opacity: 0;
+    filter: brightness(1.6) blur(2px);
+  }
+}
+
+@keyframes og-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+/* z-index flips halfway so the opened flap sits behind the card. */
+@keyframes og-flap-open {
+  0% {
+    transform: perspective(900px) rotateX(0deg);
+    z-index: 4;
+  }
+  49% {
+    z-index: 4;
+  }
+  50% {
+    z-index: 0;
+  }
+  100% {
+    transform: perspective(900px) rotateX(180deg);
+    z-index: 0;
+    filter: brightness(0.92);
+  }
+}
+
+@keyframes og-drop {
+  to {
+    translate: 0 60%;
+    opacity: 0;
+  }
+}
+
+/* One 3.6s journey for the card; percentages map to the timeline above. */
+@keyframes og-card-journey {
+  0% {
+    transform: translate3d(0, 4%, 0) scale(0.94);
+    z-index: 2;
+    opacity: 1;
+  }
+  30% {
+    transform: translate3d(0, 4%, 0) scale(0.94);
+    z-index: 2;
+    animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1);
+  }
+  55% {
+    transform: translate3d(0, -66%, 0) scale(0.96) rotateX(6deg);
+    z-index: 2;
+    animation-timing-function: cubic-bezier(0.6, 0, 0.25, 1);
+  }
+  56% {
+    z-index: 7;
+  }
+  73% {
+    transform: translate3d(0, -2%, 0) scale(1.12);
+    z-index: 7;
+  }
+  76% {
+    transform: translate3d(0, -2%, 0) scale(1.12);
+    opacity: 1;
+    filter: blur(0);
+    animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.6);
+  }
+  100% {
+    transform: translate3d(0, -2%, 0) scale(5.5);
+    z-index: 7;
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+@keyframes og-sheen {
+  to {
+    translate: 100% 0;
+  }
+}
+
+@keyframes og-flash {
+  0% {
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes og-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* ── Small screens ──────────────────────────────────────── */
+@media (max-width: 560px) {
+  .og-actions {
+    width: 100%;
+    max-width: 320px;
+    flex-direction: column;
+  }
+
+  .og-sub {
+    font-size: 11.5px;
+    letter-spacing: 0.18em;
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .og-title {
+    font-size: 36px;
+  }
+
+  .og-float {
+    margin: 16px 0;
+  }
+
+  .og-note {
+    display: none;
+  }
+}
+
+/* ── Reduced motion: a simple, quick fade ───────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .og {
+    transition: opacity 0.35s;
+  }
+
+  .og.is-opening {
+    opacity: 0;
+  }
+
+  .og.is-opening * {
+    animation: none !important;
+  }
+}

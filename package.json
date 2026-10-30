@@ -1,9 +1,24 @@
 {
   "name": "virosh-cinematic-wedding",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
-  "scripts": {"dev": "vite --host 0.0.0.0", "build": "vite build", "preview": "vite preview"},
-  "dependencies": {"@vitejs/plugin-react": "latest", "vite": "latest", "react": "latest", "react-dom": "latest", "lucide-react": "^0.468.0"},
-  "devDependencies": {}
+  "scripts": {
+    "images": "node scripts/optimize-images.mjs",
+    "predev": "npm run images",
+    "dev": "vite --host 0.0.0.0",
+    "prebuild": "npm run images",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "sharp": "^0.35.5",
+    "vite": "^8.3.5"
+  }
 }

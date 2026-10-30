@@ -2,27 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#100d0a" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0a08" />
+    <meta name="color-scheme" content="dark" />
+    <!--
+      The title and description below are replaced at runtime from
+      src/data/siteContent.js → meta. Update them here too so link
+      previews and search engines show the right text before JavaScript runs.
+    -->
+    <title>ViRosh — A Cinematic Union</title>
     <meta
       name="description"
-      content="ViRosh — Vijay × Rashmika, a cinematic wedding fan concept."
+      content="ViRosh — Vijay × Rashmika, a cinematic wedding story. An independent fan-made concept."
     />
-    <title>ViRosh — A Cinematic Union</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ViRosh — A Cinematic Union" />
+    <meta property="og:description" content="A cinematic wedding story." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <!-- Load the fonts used throughout the wedding website. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts are self-hosted from /public/fonts (see src/styles/fonts.css); preload the two used above the fold. -->
+    <link rel="preload" href="/fonts/cormorant-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cinzel-normal-latin.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
-    <!-- React renders the complete website inside this element. -->
     <div id="root"></div>
-
-    <!-- Main React application: sections, images and interactions are in src.jsx. -->
-    <script type="module" src="/src.jsx"></script>
+    <noscript>
+      <p style="padding: 40px; font-family: Georgia, serif; color: #efe4d1; background: #0e0a08">
+        Please enable JavaScript to view this cinematic wedding story.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
