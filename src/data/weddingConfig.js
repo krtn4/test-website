@@ -90,9 +90,9 @@ export const weddingConfig = {
      * 3. Optionally set the title / credit shown in the music panel.
      * Only use music you have the rights to.
      */
-    src: '',
-    title: '',
-    credit: '',
+    src: '/audio/entrysong.mp4',
+    title: 'Song title',
+    credit: 'Artist / licence', 
     /**
      * Remember whether the visitor left music on, and resume it after a
      * reload. Browsers block sound until the visitor interacts with the page,
@@ -123,14 +123,24 @@ export const weddingConfig = {
     heading: 'Create Your Own Cinematic Wedding Experience',
     body: 'Your photographs, your names, your venue and your story — presented as a film your guests will remember.',
     buttonLabel: 'Get Your Wedding Website',
-    url: '',
+    url: 'https://www.instagram.com/krtnix/',
   },
 
-  /** Optional credit link in the closing footer. Leave conceptBy empty to hide it. */
+  /**
+   * Developer identity — the studio that designed and built this site.
+   * The logo appears in the studio call-to-action and the closing footer;
+   * Instagram is the contact channel. Set logo to '' to show the name only.
+   */
+  developer: {
+    name: 'KRTNIX',
+    tagline: 'Digital Innovation Studio',
+    logo: 'brand/krtnix-logo.webp',
+    instagram: 'krtnix',
+    instagramUrl: 'https://www.instagram.com/krtnix/',
+  },
+
+  /** Closing-frame dedication line. Leave empty to hide it. */
   credits: {
-    label: 'Inspired by the fan concept by',
-    conceptBy: 'OneMark Stories',
-    conceptUrl: 'https://stories.onemark.co.in/',
     dedication: 'Crafted with ♥ for our Mr. & Mrs. Rowdy',
   },
 

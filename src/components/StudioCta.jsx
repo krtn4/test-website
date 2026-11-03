@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig.js';
+import { DeveloperLogo, InstagramIcon } from './DeveloperMark.jsx';
 import { LotusMandala } from './Ornaments.jsx';
 
 /**
@@ -7,7 +8,7 @@ import { LotusMandala } from './Ornaments.jsx';
  * fan-concept invitation so it can't be mistaken for a celebrity service.
  */
 export function StudioCta() {
-  const { studioCta } = weddingConfig;
+  const { studioCta, developer } = weddingConfig;
   if (!studioCta.enabled) return null;
   const hasUrl = Boolean(studioCta.url);
 
@@ -15,6 +16,9 @@ export function StudioCta() {
     <aside className="studio-cta" aria-labelledby="studio-cta-title">
       <LotusMandala className="studio-lotus" />
       <div className="studio-inner reveal">
+        <div className="studio-brand">
+          <DeveloperLogo />
+        </div>
         <p className="eyebrow">{studioCta.eyebrow}</p>
         <h2 id="studio-cta-title">{studioCta.heading}</h2>
         <p className="studio-body">{studioCta.body}</p>
@@ -31,6 +35,14 @@ export function StudioCta() {
               Contact link coming soon.
             </p>
           </>
+        )}
+        {developer.instagram && (
+          <p className="studio-note">
+            DM us on Instagram{' '}
+            <a className="studio-handle" href={developer.instagramUrl} target="_blank" rel="noreferrer">
+              <InstagramIcon size={15} /> @{developer.instagram}
+            </a>
+          </p>
         )}
         <p className="studio-separation">
           This showcase is a separate studio offering and has no connection to the couple featured above.
