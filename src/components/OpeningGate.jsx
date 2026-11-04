@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { Music2 } from 'lucide-react';
 import { siteContent } from '../data/siteContent.js';
 import { weddingConfig } from '../data/weddingConfig.js';
 import { useReducedMotion } from '../hooks/useMediaQuery.js';
@@ -32,7 +31,6 @@ export function OpeningGate({ onEnter, onDone }) {
   const buttonRef = useRef(null);
   const tiltRef = useRef(null);
   const reducedMotion = useReducedMotion();
-  const musicAvailable = audioEngine.getState().status !== 'unavailable';
   const initials = `${couple.partnerOne[0]}${couple.partnerTwo[0]}`;
 
   useTilt(tiltRef, { max: 7, disabled: opening });
@@ -44,10 +42,11 @@ export function OpeningGate({ onEnter, onDone }) {
     return () => root.classList.remove('is-locked');
   }, []);
 
-  const open = (withMusic) => {
+  const open = () => {
     if (opening) return;
-    // play() must run synchronously inside the click for browser autoplay rules.
-    if (withMusic) audioEngine.play();
+    // Music always starts with the invitation. play() must run synchronously
+    // inside the click / key press for browser autoplay rules.
+    audioEngine.play();
     setOpening(true);
     window.setTimeout(onEnter, reducedMotion ? 0 : REVEAL_AT);
     window.setTimeout(onDone, reducedMotion ? 400 : DONE_AT);
@@ -55,7 +54,7 @@ export function OpeningGate({ onEnter, onDone }) {
 
   useEffect(() => {
     const onKey = (event) => {
-      if (event.key === 'Escape') open(false);
+      if (event.key === 'Escape') open();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -126,14 +125,9 @@ export function OpeningGate({ onEnter, onDone }) {
         </div>
 
         <div className="og-actions">
-          <button ref={buttonRef} type="button" className="btn btn--gold" onClick={() => open(false)}>
+          <button ref={buttonRef} type="button" className="btn btn--gold" onClick={open}>
             {gate.enterLabel}
           </button>
-          {musicAvailable && (
-            <button type="button" className="btn btn--ghost" onClick={() => open(true)}>
-              <Music2 size={16} aria-hidden="true" /> {gate.enterWithMusicLabel}
-            </button>
-          )}
         </div>
         {gate.note && <p className="og-note">{gate.note}</p>}
       </div>

@@ -1,52 +1,37 @@
-import { ArrowUpRight } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig.js';
 import { DeveloperLogo, InstagramIcon } from './DeveloperMark.jsx';
-import { LotusMandala } from './Ornaments.jsx';
 
 /**
- * Showcase call-to-action. Visually and verbally separated from the
- * fan-concept invitation so it can't be mistaken for a celebrity service.
+ * Small studio strip after the closing section: a one-line prompt,
+ * the developer logo and the Instagram contact.
  */
 export function StudioCta() {
   const { studioCta, developer } = weddingConfig;
   if (!studioCta.enabled) return null;
-  const hasUrl = Boolean(studioCta.url);
 
   return (
     <aside className="studio-cta" aria-labelledby="studio-cta-title">
-      <LotusMandala className="studio-lotus" />
       <div className="studio-inner reveal">
-        <div className="studio-brand">
+        <a
+          className="studio-brand"
+          href={developer.instagramUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${developer.name} on Instagram`}
+        >
           <DeveloperLogo />
-        </div>
-        <p className="eyebrow">{studioCta.eyebrow}</p>
-        <h2 id="studio-cta-title">{studioCta.heading}</h2>
-        <p className="studio-body">{studioCta.body}</p>
-        {hasUrl ? (
-          <a className="btn btn--dark" href={studioCta.url} target="_blank" rel="noreferrer">
-            {studioCta.buttonLabel} <ArrowUpRight size={17} aria-hidden="true" />
-          </a>
-        ) : (
-          <>
-            <button type="button" className="btn btn--dark" disabled aria-describedby="studio-cta-note">
-              {studioCta.buttonLabel} <ArrowUpRight size={17} aria-hidden="true" />
-            </button>
-            <p className="studio-note" id="studio-cta-note">
-              Contact link coming soon.
+        </a>
+        <div className="studio-text">
+          <h2 id="studio-cta-title">{studioCta.heading}</h2>
+          {developer.instagram && (
+            <p className="studio-note">
+              {studioCta.contactPrefix}{' '}
+              <a className="studio-handle" href={developer.instagramUrl} target="_blank" rel="noreferrer">
+                <InstagramIcon size={15} /> @{developer.instagram}
+              </a>
             </p>
-          </>
-        )}
-        {developer.instagram && (
-          <p className="studio-note">
-            DM us on Instagram{' '}
-            <a className="studio-handle" href={developer.instagramUrl} target="_blank" rel="noreferrer">
-              <InstagramIcon size={15} /> @{developer.instagram}
-            </a>
-          </p>
-        )}
-        <p className="studio-separation">
-          This showcase is a separate studio offering and has no connection to the couple featured above.
-        </p>
+          )}
+        </div>
       </div>
     </aside>
   );

@@ -113,17 +113,13 @@ export const weddingConfig = {
   },
 
   /**
-   * Studio call-to-action shown after the closing section. It is
-   * deliberately separated from the fan-concept invitation.
-   * url: your contact page / WhatsApp link / booking form.
+   * Small studio strip shown after the closing section: a one-line
+   * prompt, the developer logo and the Instagram contact.
    */
   studioCta: {
     enabled: true,
-    eyebrow: 'From the studio',
-    heading: 'Create Your Own Cinematic Wedding Experience',
-    body: 'Your photographs, your names, your venue and your story — presented as a film your guests will remember.',
-    buttonLabel: 'Get Your Wedding Website',
-    url: 'https://www.instagram.com/krtnix/',
+    heading: 'Want a beautiful website like this?',
+    contactPrefix: 'DM us on Instagram',
   },
 
   /**

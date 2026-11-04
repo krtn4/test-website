@@ -27,7 +27,6 @@ export const siteContent = {
     enabled: true,
     subtitle: 'An invitation awaits',
     enterLabel: 'Open Invitation',
-    enterWithMusicLabel: 'Open with music',
     note: 'An independent fan-made concept · not an official announcement',
   },
 
@@ -211,6 +210,8 @@ export const siteContent = {
     musicSettings: 'Music settings',
     volume: 'Volume',
     backToTop: 'Back to top',
+    autoScrollStart: 'Start auto scroll',
+    autoScrollStop: 'Stop auto scroll',
     closeGallery: 'Close gallery',
     previousPhoto: 'Previous photo',
     nextPhoto: 'Next photo',

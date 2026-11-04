@@ -11,7 +11,7 @@ import { CoupleSection } from './components/CoupleSection.jsx';
 import { Hero } from './components/Hero.jsx';
 import { InvitationSection } from './components/InvitationSection.jsx';
 import { OpeningGate } from './components/OpeningGate.jsx';
-import { BackToTop, Disclaimer, ScrollProgressBar } from './components/PageChrome.jsx';
+import { AutoScroll, BackToTop, Disclaimer, ScrollProgressBar } from './components/PageChrome.jsx';
 import { ReelSection } from './components/ReelSection.jsx';
 import { RitualsSection } from './components/RitualsSection.jsx';
 import { RsvpSection } from './components/RsvpSection.jsx';
@@ -78,6 +78,8 @@ export default function App() {
         <StudioCta />
         <Disclaimer />
         <BackToTop />
+        {/* Auto scroll kicks in only after the visitor opens the invitation. */}
+        <AutoScroll autoStart={showGate && !gateVisible} />
       </div>
 
       {photoIndex !== null && (
